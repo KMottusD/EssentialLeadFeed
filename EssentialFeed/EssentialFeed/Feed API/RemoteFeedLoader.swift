@@ -9,7 +9,7 @@ import Foundation
 
 // We can have it public, as we need to use it in testing. Another solution would be to use @testable in the test faile while importing the "EssentialFeed" module. But if possible we should use public here in this file.
 // We mark it as final so that no one could subclass from our RemoteFeedLoader
-public final class RemoteFeedLoader {
+public final class RemoteFeedLoader: FeedLoader {
     private let url: URL
     private let client: HTTPClient
 
