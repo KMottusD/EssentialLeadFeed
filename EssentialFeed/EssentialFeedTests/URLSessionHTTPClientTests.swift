@@ -40,9 +40,11 @@ class URLSessionHTTPClientTests: XCTestCase {
         URLProtocolStub.observeRequests { request in
             XCTAssertEqual(request.url, url)
             XCTAssertEqual(request.httpMethod, "GET")
+            //While the fulfill is called inside the clousure? -> we will run into error from time to time... Thread2 "API violation - multiple calls made to -[XCTestExpectation fulfill] for Wait for request."
             exp.fulfill()
         }
-        URLSessionHTTPClient().get(from: url) { _ in }
+
+        makeSUT().get(from: url) { _ in }
         wait(for: [exp], timeout: 1.0)
     }
     
@@ -51,12 +53,10 @@ class URLSessionHTTPClientTests: XCTestCase {
         let url = URL(string: "http://any-url.com")!
         let error = NSError(domain: "any error", code: 1)
         URLProtocolStub.stub(data: nil, response: nil, error: error)
-
-        let sut = URLSessionHTTPClient()
         
         let exp = expectation(description: "Wait for completion")
         
-        sut.get(from: url) { result in
+        makeSUT().get(from: url) { result in
             switch result {
             case let .failure(receivedError as NSError):
                 XCTAssertEqual(receivedError.domain, error.domain)
@@ -71,6 +71,10 @@ class URLSessionHTTPClientTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     //MARK: - Helpers
+    
+    private func makeSUT() -> URLSessionHTTPClient {
+        return URLSessionHTTPClient()
+    }
     
     // From swift 5.5 further we need to use @unchecked Sendable to conform to swift new concurrency. While using @unchecked Sendable we also need to make sure that our decorated class will be thread-safe.
     private class URLProtocolStub: URLProtocol {
