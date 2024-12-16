@@ -41,7 +41,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     func test_getFromURL_performsGETRequestWithURL() {
         let url = anyURL()
-        let exp = XCTestExpectation(description: "Wait for request")
+        let exp = expectation(description: "Wait for request")
         URLProtocolStub.observeRequests { request in
             XCTAssertEqual(request.url, url)
             XCTAssertEqual(request.httpMethod, "GET")
@@ -56,7 +56,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     func test_getFromURL_failsOnRequestError() {
     
-        let requestError = NSError(domain: "any error", code: 1)
+        let requestError = anyNSError()
         
         let receivedError = resultErrorFor(data: nil, response: nil, error: requestError)
 //          These are still not working down here!? can't recognize any error "domain" nor "code"
@@ -92,7 +92,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     private func resultErrorFor(data: Data?, response: URLResponse?, error: Error?,file: StaticString = #filePath, line: UInt = #line) -> Error? {
         URLProtocolStub.stub(data: data, response: response, error: error)
         let sut = makeSUT(file: file, line: line)
-        let exp = XCTestExpectation(description: "Wait for completion")
+        let exp = expectation(description: "Wait for completion")
         
         var receivedError: Error?
         sut.get(from: anyURL()) { result in
