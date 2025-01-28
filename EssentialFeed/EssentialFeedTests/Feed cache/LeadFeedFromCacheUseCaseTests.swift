@@ -27,8 +27,13 @@ class LeadFeedFromCacheUseCaseTests: XCTestCase {
         let retrievalError = anyNSError()
         let exp = expectation(description: "wait for load command to complete")
         var recivedError: Error?
-        sut.load { error in
-            recivedError = error
+        sut.load { result in
+            switch result {
+            case let .failure(error):
+                recivedError = error
+            default:
+                XCTFail("Expected failure, got \(result) instead")
+            }
             exp.fulfill()
         }
         store.completeRetrieval(with: retrievalError)
