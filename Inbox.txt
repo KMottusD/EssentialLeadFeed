@@ -2,7 +2,7 @@
     ✅ Empty cache return empty
     ✅ Empty cache twice returns empty (no side-effects)
     ✅ Non-Empty cache returns data
-    - Non-Empty cache twice returns same data (no side-effects)
+    ✅ Non-Empty cache twice returns same data (no side-effects)
     - Error returns error (if applicable, e.g., invalid data)
     - Error twice returns same error (if applicable, e.g., invalid data)
 
