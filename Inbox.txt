@@ -1,0 +1,15 @@
+- Retrieve
+    - Empty cache
+    - Non-Empty cache returns data
+    - Non-Empty cache twice returns same data (no side-effects)
+    - Error (if applicable, e.g., invalid data)
+
+- Insert
+    - Insert into empty cache store data
+    - Insert non-empty cache overrides previous data with new data
+    - Error case (if applicable, e.g., no write permission)
+
+- Delete
+    - Empty cache does nothing (cache stays empty and does not fail)
+    - Non-Empty cache leave cache empty
+    - Error case (if applicable, e.g., no delete permisson)
