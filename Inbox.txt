@@ -16,4 +16,4 @@
     ✅ Non-Empty cache leave cache empty
     ✅ Error case (if applicable, e.g., no delete permisson)
 
-- Side-effects must run serially to avoid race-conditions 
+✅ Side-effects must run serially to avoid race-conditions 
