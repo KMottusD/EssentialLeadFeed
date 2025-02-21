@@ -23,6 +23,12 @@ class CoreDataFeedStoreTests: XCTestCase {
     
     func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
         let sut = makeSUT()
+        let feed = uniqueImageFeed()
+        let timestamp = Date()
+        
+        sut.insert(feed.local, timestamp: timestamp, completion: { _ in })
+
+        expect(sut, toRetrieve: .found(feed: feed.local, timestamp: timestamp))
         
     }
     
@@ -30,7 +36,8 @@ class CoreDataFeedStoreTests: XCTestCase {
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
         let storeBundle = Bundle(for: CoreDataFeedStore.self)
-        let sut = try! CoreDataFeedStore(bundle: storeBundle)
+        let storeURL = URL(fileURLWithPath: "/dev/null")
+        let sut = try! CoreDataFeedStore(storeURL: storeURL, bundle: storeBundle)
         trackForMemmoryLeaks(sut, file: file, line: line)
         return sut
     }
@@ -43,16 +50,23 @@ class CoreDataFeedStoreTests: XCTestCase {
     func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for cache retrieval")
 
-        sut.retrieve { result in
-            switch result {
-            case .empty:
+        sut.retrieve { retrievedResult in
+            switch (expectedResult, retrievedResult) {
+            case (.empty, .empty),
+                 (.failure, .failure):
                 break
+
+            case let (.found(expectedFeed, expectedTimestamp), .found(retrievedFeed, retrievedTimestamp)):
+                XCTAssertEqual(retrievedFeed, expectedFeed, file: file, line: line)
+                XCTAssertEqual(retrievedTimestamp, expectedTimestamp, file: file, line: line)
+
             default:
-                XCTFail("Expected empty result, got \(result)")
+                XCTFail("Expected to retrieve \(expectedResult), got \(retrievedResult) instead", file: file, line: line)
             }
+
             exp.fulfill()
-            
         }
+
         wait(for: [exp], timeout: 1.0)
     }
 
