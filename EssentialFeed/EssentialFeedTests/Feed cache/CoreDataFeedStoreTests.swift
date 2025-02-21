@@ -42,6 +42,14 @@ class CoreDataFeedStoreTests: XCTestCase {
         
     }
     
+    func test_insert_deliversNoErrorOnEmptyCache() {
+
+        let sut = makeSUT()
+        let insertionError = insert((uniqueImageFeed().local, Date()), to: sut)
+        
+        XCTAssertNil(insertionError, "Expected to insert cache successfully")
+    }
+    
     // - MARK: Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
@@ -79,5 +87,17 @@ class CoreDataFeedStoreTests: XCTestCase {
 
         wait(for: [exp], timeout: 1.0)
     }
+    
+    func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: CoreDataFeedStore) -> Error? {
+        let exp = expectation(description: "Wait for cache insertion")
+        var insertionError: Error?
+        sut.insert(cache.feed, timestamp: cache.timestamp) { receivedInsertionError in
+            insertionError = receivedInsertionError
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+        return insertionError
+    }
+
 
 }
