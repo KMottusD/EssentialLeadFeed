@@ -31,6 +31,16 @@ class CoreDataFeedStoreTests: XCTestCase {
         expect(sut, toRetrieve: .found(feed: feed.local, timestamp: timestamp))
         
     }
+    func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
+
+        let sut = makeSUT()
+        let feed = uniqueImageFeed()
+        let timestamp = Date()
+        
+        sut.insert(feed.local, timestamp: timestamp, completion: { _ in })
+        expect(sut, toRetrieveTwice: .found(feed: feed.local, timestamp: timestamp))
+        
+    }
     
     // - MARK: Helpers
 
