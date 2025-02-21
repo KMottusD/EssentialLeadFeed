@@ -12,7 +12,7 @@ class CoreDataFeedStoreTests: XCTestCase {
 
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSUT()
-        expect(sut, toRetrieveTwice: .empty)
+        expect(sut, toRetrieve: .empty)
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
@@ -21,10 +21,16 @@ class CoreDataFeedStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .empty)
     }
     
+    func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
+        let sut = makeSUT()
+        
+    }
+    
     // - MARK: Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
-        let sut = CoreDataFeedStore()
+        let storeBundle = Bundle(for: CoreDataFeedStore.self)
+        let sut = try! CoreDataFeedStore(bundle: storeBundle)
         trackForMemmoryLeaks(sut, file: file, line: line)
         return sut
     }
