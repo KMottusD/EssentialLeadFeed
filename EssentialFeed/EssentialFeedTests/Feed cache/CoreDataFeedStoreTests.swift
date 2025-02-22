@@ -50,13 +50,23 @@ class CoreDataFeedStoreTests: XCTestCase {
         XCTAssertNil(insertionError, "Expected to insert cache successfully")
     }
     
-    
     func test_insert_deliversNoErrorOnNonEmptyCache() {
         let sut = makeSUT()
         _ = insert((uniqueImageFeed().local, Date()), to: sut)
         let insertionError = insert((uniqueImageFeed().local, Date()), to: sut)
 
         XCTAssertNil(insertionError, "Expected to override cache successfully")
+    }
+    
+    func test_insert_overridesPreviouslyInsertedCacheValues() {
+        let sut = makeSUT()
+        _ = insert((uniqueImageFeed().local, Date()), to: sut)
+
+        let latestFeed = [LocalFeedImage]()
+        let latestTimestamp = Date()
+        _ = insert((latestFeed, latestTimestamp), to: sut)
+
+        expect(sut, toRetrieve: .found(feed: latestFeed, timestamp: latestTimestamp))
     }
     
     // - MARK: Helpers
