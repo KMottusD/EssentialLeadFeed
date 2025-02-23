@@ -102,6 +102,31 @@ class CoreDataFeedStoreTests: XCTestCase {
         
     }
     
+    func test_storeSideEffects_runSerially() {
+        let sut = makeSUT()
+        let op1 = expectation(description: "Operation 1")
+        sut.insert(uniqueImageFeed().local, timestamp: Date()) { _ in
+            op1.fulfill()
+        }
+
+        let op2 = expectation(description: "Operation 2")
+        sut.deleteCacheFeed { _ in
+            op2.fulfill()
+        }
+
+        let op3 = expectation(description: "Operation 3")
+        sut.insert(uniqueImageFeed().local, timestamp: Date()) { _ in
+            op3.fulfill()
+        }
+
+        let op4 = expectation(description: "Operation 4")
+        sut.retrieve { _ in
+            op4.fulfill()
+        }
+
+        wait(for: [op1, op2, op3, op4], timeout: 5.0, enforceOrder: true)
+    }
+    
     // - MARK: Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
