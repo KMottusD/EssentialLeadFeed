@@ -123,7 +123,6 @@ class CoreDataFeedStoreTests: XCTestCase {
         sut.retrieve { _ in
             op4.fulfill()
         }
-
         wait(for: [op1, op2, op3, op4], timeout: 5.0, enforceOrder: true)
     }
     
