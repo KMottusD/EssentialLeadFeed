@@ -90,7 +90,16 @@ class CoreDataFeedStoreTests: XCTestCase {
         let deletionError = deleteCache(from: sut)
 
         XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
+    }
+    
+    func test_delete_emptiesPreviouslyInsertedCache() {
+        let sut = makeSUT()
+        _ = insert((uniqueImageFeed().local, Date()), to: sut)
 
+        deleteCache(from: sut)
+
+        expect(sut, toRetrieve: .empty)
+        
     }
     
     // - MARK: Helpers
