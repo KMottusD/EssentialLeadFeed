@@ -77,6 +77,13 @@ class CoreDataFeedStoreTests: XCTestCase {
         
     }
     
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+        let sut = makeSUT()
+        deleteCache(from: sut)
+        expect(sut, toRetrieve: .empty)
+    }
+    
+    
     // - MARK: Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
