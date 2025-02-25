@@ -1,10 +1,6 @@
-//
 //  XCTestCase+MemoryLeakTracking.swift
 //  EssentialFeedTests
-//
 //  Created by KM on 14.12.2024.
-//
-
 import Foundation
 import XCTest
 
