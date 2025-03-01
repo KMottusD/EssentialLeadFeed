@@ -12,13 +12,13 @@ class CoreDataFeedStoreTests: XCTestCase {
     
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSUT()
-        expect(sut, toRetrieve: .empty)
+        expect(sut, toRetrieve: .success(.empty))
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
         
-        expect(sut, toRetrieveTwice: .empty)
+        expect(sut, toRetrieveTwice: .success(.empty))
     }
     
     func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
@@ -28,7 +28,7 @@ class CoreDataFeedStoreTests: XCTestCase {
         
         sut.insert(feed.local, timestamp: timestamp, completion: { _ in })
         
-        expect(sut, toRetrieve: .found(feed: feed.local, timestamp: timestamp))
+        expect(sut, toRetrieve: .success(.found(feed: feed.local, timestamp: timestamp)))
         
     }
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
@@ -38,7 +38,7 @@ class CoreDataFeedStoreTests: XCTestCase {
         let timestamp = Date()
         
         sut.insert(feed.local, timestamp: timestamp, completion: { _ in })
-        expect(sut, toRetrieveTwice: .found(feed: feed.local, timestamp: timestamp))
+        expect(sut, toRetrieveTwice: .success(.found(feed: feed.local, timestamp: timestamp)))
         
     }
     
@@ -66,7 +66,7 @@ class CoreDataFeedStoreTests: XCTestCase {
         let latestTimestamp = Date()
         _ = insert((latestFeed, latestTimestamp), to: sut)
         
-        expect(sut, toRetrieve: .found(feed: latestFeed, timestamp: latestTimestamp))
+        expect(sut, toRetrieve: .success(.found(feed: latestFeed, timestamp: latestTimestamp)))
     }
     
     func test_delete_deliversNoErrorOnEmptyCache() {
@@ -80,7 +80,7 @@ class CoreDataFeedStoreTests: XCTestCase {
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
         deleteCache(from: sut)
-        expect(sut, toRetrieve: .empty)
+        expect(sut, toRetrieve: .success(.empty))
     }
     
     func test_delete_deliversNoErrorOnNonEmptyCache() {
@@ -98,7 +98,7 @@ class CoreDataFeedStoreTests: XCTestCase {
 
         deleteCache(from: sut)
 
-        expect(sut, toRetrieve: .empty)
+        expect(sut, toRetrieve: .success(.empty))
         
     }
     
@@ -136,31 +136,29 @@ class CoreDataFeedStoreTests: XCTestCase {
         return sut
     }
     
-    func expect(_ sut: FeedStore, toRetrieveTwice expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line) {
+    func expect(_ sut: FeedStore, toRetrieveTwice expectedResult: FeedStore.RetrievalResult, file: StaticString = #filePath, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
     }
     
-    func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line) {
+    func expect(_ sut: FeedStore, toRetrieve expectedResult: FeedStore.RetrievalResult, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { retrievedResult in
             switch (expectedResult, retrievedResult) {
-            case (.empty, .empty),
-                (.failure, .failure):
+            case (.success(.empty), .success(.empty)),
+                 (.failure, .failure):
                 break
                 
-            case let (.found(expectedFeed, expectedTimestamp), .found(retrievedFeed, retrievedTimestamp)):
+            case let (.success(.found(expectedFeed, expectedTimestamp)), .success(.found(retrievedFeed, retrievedTimestamp))):
                 XCTAssertEqual(retrievedFeed, expectedFeed, file: file, line: line)
                 XCTAssertEqual(retrievedTimestamp, expectedTimestamp, file: file, line: line)
                 
             default:
                 XCTFail("Expected to retrieve \(expectedResult), got \(retrievedResult) instead", file: file, line: line)
             }
-            
             exp.fulfill()
         }
-        
         wait(for: [exp], timeout: 1.0)
     }
     
