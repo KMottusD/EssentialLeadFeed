@@ -131,10 +131,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
             "description": description,
             "location": location,
             "image": imageURL.absoluteString
-            //Down here we will add only new values. In Swift5 there is new compact map for that specific usecase
-        ].reduce(into: [String:Any ]()) {(acc, e) in
-            if let value = e.value { acc[e.key] = value }
-        }
+        ].compactMapValues{ $0 }
         return (item, json)
     }
     
