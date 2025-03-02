@@ -12,13 +12,13 @@ class CoreDataFeedStoreTests: XCTestCase {
     
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSUT()
-        expect(sut, toRetrieve: .success(.empty))
+        expect(sut, toRetrieve: .success(.none))
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
         
-        expect(sut, toRetrieveTwice: .success(.empty))
+        expect(sut, toRetrieveTwice: .success(.none))
     }
     
     func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
@@ -28,7 +28,7 @@ class CoreDataFeedStoreTests: XCTestCase {
         
         sut.insert(feed.local, timestamp: timestamp, completion: { _ in })
         
-        expect(sut, toRetrieve: .success(.found(feed: feed.local, timestamp: timestamp)))
+        expect(sut, toRetrieve: .success(CachedFeed(feed: feed.local, timestamp: timestamp)))
         
     }
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
@@ -38,7 +38,7 @@ class CoreDataFeedStoreTests: XCTestCase {
         let timestamp = Date()
         
         sut.insert(feed.local, timestamp: timestamp, completion: { _ in })
-        expect(sut, toRetrieveTwice: .success(.found(feed: feed.local, timestamp: timestamp)))
+        expect(sut, toRetrieveTwice: .success(CachedFeed(feed: feed.local, timestamp: timestamp)))
         
     }
     
@@ -66,7 +66,7 @@ class CoreDataFeedStoreTests: XCTestCase {
         let latestTimestamp = Date()
         _ = insert((latestFeed, latestTimestamp), to: sut)
         
-        expect(sut, toRetrieve: .success(.found(feed: latestFeed, timestamp: latestTimestamp)))
+        expect(sut, toRetrieve: .success(CachedFeed(feed: latestFeed, timestamp: latestTimestamp)))
     }
     
     func test_delete_deliversNoErrorOnEmptyCache() {
@@ -80,7 +80,7 @@ class CoreDataFeedStoreTests: XCTestCase {
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
         deleteCache(from: sut)
-        expect(sut, toRetrieve: .success(.empty))
+        expect(sut, toRetrieve: .success(.none))
     }
     
     func test_delete_deliversNoErrorOnNonEmptyCache() {
@@ -98,7 +98,7 @@ class CoreDataFeedStoreTests: XCTestCase {
 
         deleteCache(from: sut)
 
-        expect(sut, toRetrieve: .success(.empty))
+        expect(sut, toRetrieve: .success(.none))
         
     }
     
@@ -146,13 +146,13 @@ class CoreDataFeedStoreTests: XCTestCase {
         
         sut.retrieve { retrievedResult in
             switch (expectedResult, retrievedResult) {
-            case (.success(.empty), .success(.empty)),
+            case (.success(.none), .success(.none)),
                  (.failure, .failure):
                 break
                 
-            case let (.success(.found(expectedFeed, expectedTimestamp)), .success(.found(retrievedFeed, retrievedTimestamp))):
-                XCTAssertEqual(retrievedFeed, expectedFeed, file: file, line: line)
-                XCTAssertEqual(retrievedTimestamp, expectedTimestamp, file: file, line: line)
+            case let (.success(.some(expected)), .success(.some(retrieved))):
+                XCTAssertEqual(retrieved.feed, expected.feed, file: file, line: line)
+                XCTAssertEqual(retrieved.timestamp, expected.timestamp, file: file, line: line)
                 
             default:
                 XCTFail("Expected to retrieve \(expectedResult), got \(retrievedResult) instead", file: file, line: line)
