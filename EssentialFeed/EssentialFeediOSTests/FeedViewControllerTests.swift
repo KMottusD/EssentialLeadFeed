@@ -22,7 +22,13 @@ final class FeedViewController: UITableViewController {
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        
         load()
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        refreshControl?.beginRefreshing()
     }
     
     @objc private func load() {
@@ -61,6 +67,19 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 3)
         
     }
+    
+    func test_viewDidLoad_showsLoadingIndicator (){
+        let (sut, _) = makeSUT()
+        
+        sut.loadViewIfNeeded() // viewDidLoad
+        sut.replaceRefreshControlWIthFakeForIOS17Support()
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+        
+        sut.beginAppearanceTransition(true, animated: false) // viewWillAppear
+        sut.endAppearanceTransition() // viewIsAppearing + viewDidAppear
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+        
+    }
 
     // MARK: - Helpers
     
@@ -82,6 +101,20 @@ final class FeedViewControllerTests: XCTestCase {
 
 }
 
+private extension FeedViewController {
+    func replaceRefreshControlWIthFakeForIOS17Support() {
+        let fake = FakeRefreshControl()
+        
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach {
+                action in
+                fake.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+        }
+        refreshControl = fake
+    }
+}
+
 private extension UIRefreshControl {
     func simulatePullToRefresh() {
         allTargets.forEach { target in
@@ -89,5 +122,20 @@ private extension UIRefreshControl {
                 (target as NSObject).perform (Selector($0))
             }
         }
+    }
+}
+
+//Safest way to rund tests.. FOR TESTING ONLY!!
+private class FakeRefreshControl: UIRefreshControl {
+    private var _isRegreshing = false
+    
+    override var isRefreshing: Bool { _isRegreshing }
+    
+    override func beginRefreshing() {
+        _isRegreshing = true
+    }
+    
+    override func endRefreshing() {
+        _isRegreshing = false
     }
 }
