@@ -12,7 +12,20 @@
 
   },
   "testTargets" : [
-
+    {
+      "target" : {
+        "containerPath" : "container:EssentialFeed.xcodeproj",
+        "identifier" : "1D930CE02D6DF2B100065BF1",
+        "name" : "EssentialFeedCacheIntegrationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EssentialFeed.xcodeproj",
+        "identifier" : "1DD2F1E62D943CF200201E9D",
+        "name" : "EssentialFeediOSTests"
+      }
+    }
   ],
   "version" : 1
 }
