@@ -5,9 +5,9 @@
 //  Created by KM on 26.03.2025.
 //
 
+import EssentialFeediOS
 import Foundation
 import UIKit
-import EssentialFeed
 
 final public class FeedViewController: UITableViewController {
     private var loader: FeedLoader?
