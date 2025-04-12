@@ -57,7 +57,6 @@ final class FeedViewControllerTests: XCTestCase {
         
     }
     
-    //NB! Framework issue? down here two assertions are failing with out any good reason!? Let's get back to them after next Xcode/Swift update?! -> failed -  Expected FeedImageCell instance, got Optional(<EssentialFeed.FeedImageCell: 0x10181f200; baseClass = UITableViewCell; frame = (0 0; 320 44); layer = <CALayer: 0x6000004d2fc0>>) instead
     func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
         let image0 = makeImage(description: "a description", location: "a location")
         let image1 = makeImage(description: nil, location: "another location")
@@ -76,7 +75,22 @@ final class FeedViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [image0, image1, image2, image3])
     }
     
-    // Effectively Test-driving MVC UI with Multiple 07:40
+    
+    func test_loadFeedCompletion_doesNotAlterCurrentRengeringStateOnError() {
+        let image0 = makeImage()
+        let(sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0], at: 0)
+        assertThat(sut, isRendering: [image0])
+        
+        sut.simulateUserInitiatedFeedReload()
+        loader.completeFeedLoadingWithError(at: 1)
+        assertThat(sut, isRendering: [image0])
+        
+    }
+    
+    // Effectively Test-driving MVC UI with Multiple 09.06
     
     // MARK: - Helpers
     
@@ -130,6 +144,11 @@ final class FeedViewControllerTests: XCTestCase {
         
         func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
             completions[index](.success(feed))
+        }
+        
+        func completeFeedLoadingWithError( at index: Int = 0) {
+            let error = NSError(domain: "an error", code: 0)
+            completions[index](.failure(error))
         }
     }
 

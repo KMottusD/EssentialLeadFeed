@@ -5,7 +5,7 @@
 //  Created by KM on 26.03.2025.
 //
 
-import EssentialFeediOS
+import EssentialFeed
 import Foundation
 import UIKit
 
@@ -42,9 +42,15 @@ final public class FeedViewController: UITableViewController {
     @objc private func load() {
         refresh()
         loader?.load { [weak self] result in
-            self?.tableModel = (try? result.get()) ?? []
-            self?.tableView.reloadData()
-            self?.refreshControl?.endRefreshing()
+            switch result {
+            case let .success(feed):
+                self?.tableModel = feed
+                self?.tableView.reloadData()
+                self?.refreshControl?.endRefreshing()
+                
+            case .failure: break
+            }
+
         }
     }
     

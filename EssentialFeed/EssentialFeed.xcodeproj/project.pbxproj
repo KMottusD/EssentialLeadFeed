@@ -121,21 +121,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1D32DAAB2DA11BAA00BBDEC9 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				FeedImageCell.swift,
-			);
-			target = 1DD2F1E62D943CF200201E9D /* EssentialFeediOSTests */;
-		};
-		1DBABA5A2D9F0EA10051D6BF /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				FeedImageCell.swift,
-				FeedViewController.swift,
-			);
-			target = 080EDEF021B6DA7E00813479 /* EssentialFeed */;
-		};
 		1DC613562D403E7C006F8C34 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -149,9 +134,6 @@
 		};
 		1DD2F1EF2D943CF200201E9D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				FeedViewController.swift,
-			);
 			publicHeaders = (
 				EssentialFeediOS.h,
 			);
@@ -162,7 +144,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1D930CE22D6DF2B100065BF1 /* EssentialFeedCacheIntegrationTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedCacheIntegrationTests; sourceTree = "<group>"; };
 		1DC613512D403E7C006F8C34 /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1DC613562D403E7C006F8C34 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
-		1DD2F1DF2D943CF200201E9D /* EssentialFeediOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1DBABA5A2D9F0EA10051D6BF /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 1DD2F1EF2D943CF200201E9D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 1D32DAAB2DA11BAA00BBDEC9 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeediOS; sourceTree = "<group>"; };
+		1DD2F1DF2D943CF200201E9D /* EssentialFeediOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1DD2F1EF2D943CF200201E9D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeediOS; sourceTree = "<group>"; };
 		1DD2F1EB2D943CF200201E9D /* EssentialFeediOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeediOSTests; sourceTree = "<group>"; };
 		1DD46DCC2D134E1400B62665 /* EssentialFeedAPIEndToEndTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedAPIEndToEndTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
