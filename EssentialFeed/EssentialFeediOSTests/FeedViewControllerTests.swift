@@ -144,6 +144,28 @@ final class FeedViewControllerTests: XCTestCase {
         
     }
     
+    func test_feedImageView_rendersImageLoadedFromURL() {
+            let (sut, loader) = makeSUT()
+
+            sut.loadViewIfNeeded()
+            loader.completeFeedLoading(with: [makeImage(), makeImage()])
+
+            let view0 = sut.simulateFeedImageViewVisible(at: 0)
+            let view1 = sut.simulateFeedImageViewVisible(at: 1)
+            XCTAssertEqual(view0?.renderedImage, .none, "Expected no image for first view while loading first image")
+            XCTAssertEqual(view1?.renderedImage, .none, "Expected no image for second view while loading second image")
+
+            let imageData0 = UIImage.make(withColor: .red).pngData()!
+            loader.completeImageLoading(with: imageData0, at: 0)
+            XCTAssertEqual(view0?.renderedImage, imageData0, "Expected image for first view once first image loading completes successfully")
+            XCTAssertEqual(view1?.renderedImage, .none, "Expected no image state change for second view once first image loading completes successfully")
+
+            let imageData1 = UIImage.make(withColor: .blue).pngData()!
+            loader.completeImageLoading(with: imageData1, at: 1)
+            XCTAssertEqual(view0?.renderedImage, imageData0, "Expected no image state change for first view once second image loading completes successfully")
+            XCTAssertEqual(view1?.renderedImage, imageData1, "Expected image for second view once second image loading completes successfully")
+        }
+    
     // Effectively Test-driving MVC UI with Multiple 16
     
     // MARK: - Helpers
@@ -199,6 +221,9 @@ final class FeedViewControllerTests: XCTestCase {
             feedRequests.append(completion)
         }
         
+        func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
+            feedRequests[index](.success(feed))
+        }
 
         func completeFeedLoadingWithError( at index: Int = 0) {
             let error = NSError(domain: "an error", code: 0)
@@ -226,9 +251,6 @@ final class FeedViewControllerTests: XCTestCase {
             return TaskSpy { [weak self] in self?.cancelledImageURLs.append(url) }
         }
         
-        func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
-            feedRequests[index](.success(feed))
-        }
         func completeImageLoading (with imageData: Data = Data(), at index: Int = 0) {
             imageRequests[index].completion(.success(imageData))
         }
@@ -237,9 +259,7 @@ final class FeedViewControllerTests: XCTestCase {
             let error = NSError(domain: "an error", code: 0)
             imageRequests[index].completion(.failure(error))
         }
-        
     }
-
 }
 
 private extension UIRefreshControl {
@@ -317,9 +337,13 @@ private extension FeedImageCell {
     var descriptionText: String? {
         return descriptionLabel.text
     }
+    
+    var renderedImage: Data? {
+        return feedImageView.image?.pngData()
+    }
 }
 
-//Safest way to rund tests.. FOR TESTING ONLY!!
+//Safest way to run tests.. FOR TESTING ONLY!!
 private class FakeRefreshControl: UIRefreshControl {
     private var _isRefeshing = false
     
@@ -331,6 +355,19 @@ private class FakeRefreshControl: UIRefreshControl {
     
     override func endRefreshing() {
         _isRefeshing = false
+    }
+}
+
+private extension UIImage {
+    static func make(withColor color: UIColor) -> UIImage {
+        let rect = CGRect(x:0, y:0, width: 1, height: 1)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        
+        return UIGraphicsImageRenderer(size: rect.size, format: format).image { rendererContext in
+            color.setFill()
+            rendererContext.fill(rect)
+        }
     }
 }
 
