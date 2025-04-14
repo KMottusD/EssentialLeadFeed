@@ -31,7 +31,7 @@ final class FeedViewControllerTests: XCTestCase {
         
         sut.loadViewIfNeeded() // viewDidLoad
         sut.replaceRefreshControlWIthFakeForIOS17Support()
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Excpected no loading indicator before the view is loaded")
         
         sut.beginAppearanceTransition(true, animated: false) // viewWillAppear
         sut.endAppearanceTransition() // viewIsAppearing + viewDidAppear
@@ -41,19 +41,19 @@ final class FeedViewControllerTests: XCTestCase {
         sut.refreshControl?.endRefreshing()
         sut.beginAppearanceTransition(true, animated: false)
         sut.endAppearanceTransition()
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
-        
-        loader.completeFeedLoading(at: 0)
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
         
         sut.refreshControl?.beginRefreshing()
         sut.beginAppearanceTransition(true, animated: false)
         sut.endAppearanceTransition()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
-        
+    
         sut.simulateUserInitiatedFeedReload()
         loader.completeFeedLoading(at: 1)
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indication once loading is completed")
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicatior once loading is completed")
+        
+        loader.completeFeedLoadingWithError(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indication once loading is completed with error")
         
     }
     
