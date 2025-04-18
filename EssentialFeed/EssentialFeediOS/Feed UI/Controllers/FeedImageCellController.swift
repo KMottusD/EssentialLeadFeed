@@ -11,9 +11,9 @@ import EssentialFeed
 final class FeedImageCellController {
     private var task: FeedImageDataLoaderTask?
     private var model: FeedImage
-    private var imageLoader: FeeedImageDataLoader
+    private var imageLoader: FeedImageDataLoader
     
-    init(model: FeedImage, imageLoader: FeeedImageDataLoader) {
+    init(model: FeedImage, imageLoader: FeedImageDataLoader) {
         self.model = model
         self.imageLoader = imageLoader
     }
