@@ -5,17 +5,10 @@
 //  Created by KM on 19.04.2025.
 //
 
+import Foundation
 import EssentialFeed
 
-protocol FeedLoadingView {
-    func display(isLoading: Bool)
-}
-
-protocol FeedView {
-    func display(feed: [FeedImage])
-}
-
-final class FeedPresenter {
+final class FeedViewModel {
     typealias Observer<T> = (T) -> Void
     
     private let feedloader: FeedLoader
@@ -24,17 +17,18 @@ final class FeedPresenter {
         self.feedloader = feedloader
     }
           
-    var feedView: FeedView?
-    var loadingView: FeedLoadingView?
+    var onLoadingStateChange: Observer<Bool>?
+    var onFeedLoad: Observer<[FeedImage]>?
     
     
     func loadFeed() {
-        loadingView?.display(isLoading: true)
+        onLoadingStateChange?(true)
+        
         feedloader.load { [weak self] result in
             if let feed = try? result.get() {
-                self?.feedView?.display(feed: feed)
+                self?.onFeedLoad?(feed)
             }
-            self?.loadingView?.display(isLoading: false)
+            self?.onLoadingStateChange?(false)
         }
     }
 }
