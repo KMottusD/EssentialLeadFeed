@@ -124,6 +124,7 @@
                         <connections>
                             <outlet property="dataSource" destination="zTL-d3-dNA" id="D9W-Hw-p6v"/>
                             <outlet property="delegate" destination="zTL-d3-dNA" id="bWV-s5-sEc"/>
+                            <outlet property="prefetchDataSource" destination="zTL-d3-dNA" id="XCp-sd-epJ"/>
                         </connections>
                     </tableView>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="MHM-1I-bPA">
