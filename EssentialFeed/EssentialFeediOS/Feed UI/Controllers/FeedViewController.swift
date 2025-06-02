@@ -23,10 +23,10 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
         didSet { tableView.reloadData() }
     }
     
-    public let errorView = ErrorView()
+    @IBOutlet private(set) public var errorView: ErrorView?
     
     public var errorMessage: String? {
-            return errorView.message
+            return errorView?.message
         }
     
     public override func viewDidLoad() {
@@ -52,7 +52,7 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     func display(_ viewModel: FeedErrorViewModel) {
-            errorView.message = viewModel.message
+            errorView?.message = viewModel.message
         }
     
     public override func viewIsAppearing(_ animated: Bool) {
