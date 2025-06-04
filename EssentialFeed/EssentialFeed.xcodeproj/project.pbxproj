@@ -236,7 +236,6 @@
 		080EDEF321B6DA7E00813479 /* EssentialFeed */ = {
 			isa = PBXGroup;
 			children = (
-				1D39E1842DEC83780020AA7D /* Feed Presentation */,
 				1DC6133D2D3D06F2006F8C34 /* Feed Cache */,
 				1DC613512D403E7C006F8C34 /* Feed API */,
 				080EDEF521B6DA7E00813479 /* Info.plist */,
@@ -248,6 +247,7 @@
 		080EDEFE21B6DA7E00813479 /* EssentialFeedTests */ = {
 			isa = PBXGroup;
 			children = (
+				1D47D8A52DEF3115002E6088 /* Feed Presentation */,
 				1DD84B342D0D7E04005DBCDD /* Helpers */,
 				1DC613382D3989D3006F8C34 /* Feed cache */,
 				1DD84B332D0D7DEF005DBCDD /* Feed API */,
@@ -265,7 +265,7 @@
 			path = "Feed Feature";
 			sourceTree = "<group>";
 		};
-		1D39E1842DEC83780020AA7D /* Feed Presentation */ = {
+		1D47D8A52DEF3115002E6088 /* Feed Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				1D39E1872DEC8B840020AA7D /* FeedPresenterTests.swift */,
