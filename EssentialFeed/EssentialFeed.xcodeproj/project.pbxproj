@@ -62,6 +62,8 @@
 		1DD4E9FD2D04D8E600937825 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD4E9FC2D04D8E600937825 /* URLSessionHTTPClientTests.swift */; };
 		1DD84B362D0D7E7F005DBCDD /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD84B352D0D7E7F005DBCDD /* XCTestCase+MemoryLeakTracking.swift */; };
 		1DE7C8A92DFEAE0600FB7F69 /* CoreDataFeedImageDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE7C8A82DFEAE0600FB7F69 /* CoreDataFeedImageDataStoreTests.swift */; };
+		1DE7C91A2DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE7C9192DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift */; };
+		1DE7C91B2DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE7C9192DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift */; };
 		1DFC2A622D67A6F300DAC693 /* FeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1DFC2A602D67A6F300DAC693 /* FeedStore.xcdatamodeld */; };
 		1DFC2A632D67A6F300DAC693 /* FeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1DFC2A602D67A6F300DAC693 /* FeedStore.xcdatamodeld */; };
 		1DFC2A722D67A8F300DAC693 /* ManagedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFC2A702D67A8F300DAC693 /* ManagedCache.swift */; };
@@ -163,6 +165,7 @@
 		1DD84B352D0D7E7F005DBCDD /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		1DE7C8A82DFEAE0600FB7F69 /* CoreDataFeedImageDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedImageDataStoreTests.swift; sourceTree = "<group>"; };
 		1DE7C9182DFEB94D00FB7F69 /* FeedStore 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FeedStore 2.xcdatamodel"; sourceTree = "<group>"; };
+		1DE7C9192DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataFeedStore+FeedImageDataLoader.swift"; sourceTree = "<group>"; };
 		1DFC2A612D67A6F300DAC693 /* FeedStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FeedStore.xcdatamodel; sourceTree = "<group>"; };
 		1DFC2A702D67A8F300DAC693 /* ManagedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedCache.swift; sourceTree = "<group>"; };
 		1DFC2A712D67A8F300DAC693 /* ManagedFeedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedFeedImage.swift; sourceTree = "<group>"; };
@@ -361,6 +364,7 @@
 				1D7F66EA2D6B546A00828594 /* CoreDataHelpers.swift */,
 				1DFC2A702D67A8F300DAC693 /* ManagedCache.swift */,
 				1DFC2A712D67A8F300DAC693 /* ManagedFeedImage.swift */,
+				1DE7C9192DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -704,6 +708,7 @@
 				1DA36CEA2DFDFF2400481A88 /* FeedImageDataStore.swift in Sources */,
 				1DC6135A2D403EEE006F8C34 /* LocalFeedImage.swift in Sources */,
 				1D47D8B02DF073C9002E6088 /* FeedViewModel.swift in Sources */,
+				1DE7C91B2DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift in Sources */,
 				1DC613412D3EDFBF006F8C34 /* FeedStore.swift in Sources */,
 				080EDF0C21B6DAE800813479 /* FeedImage.swift in Sources */,
 				1D47D8AD2DF0717F002E6088 /* FeedPresenter.swift in Sources */,
@@ -776,6 +781,7 @@
 				1D580A902D4B8A62001BD91C /* SharedTestHelpers.swift in Sources */,
 				1DFC2A722D67A8F300DAC693 /* ManagedCache.swift in Sources */,
 				1DFC2A732D67A8F300DAC693 /* ManagedFeedImage.swift in Sources */,
+				1DE7C91A2DFEBE8B00FB7F69 /* CoreDataFeedStore+FeedImageDataLoader.swift in Sources */,
 				1D717B002D7D97820017E336 /* FeedImage.swift in Sources */,
 				1DFC2A622D67A6F300DAC693 /* FeedStore.xcdatamodeld in Sources */,
 				1D717AFF2D7D97610017E336 /* FeedLoader.swift in Sources */,
