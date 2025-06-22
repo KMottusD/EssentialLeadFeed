@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 extension CoreDataFeedStore: FeedStore {
     public func retrieve(completion: @escaping RetrievalCompletion) {
         perform { context in
