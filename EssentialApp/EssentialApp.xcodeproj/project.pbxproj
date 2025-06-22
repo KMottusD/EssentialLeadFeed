@@ -59,6 +59,7 @@
 		1D08BDDE2E06C214007591F1 /* Exceptions for "EssentialAppTests" folder in "EssentialApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderWithFallBackTests.swift,
 			);
 			target = 1D7D17BC2E034A100054700E /* EssentialApp */;
@@ -66,6 +67,7 @@
 		1D08BDDF2E06C214007591F1 /* Exceptions for "EssentialAppTests" folder in "EssentialAppTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderWithFallBackTests.swift,
 			);
 			target = 1D7D17D22E034A120054700E /* EssentialAppTests */;
