@@ -61,6 +61,7 @@
 			membershipExceptions = (
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderWithFallBackTests.swift,
+				"Helpers/XCTestCase+MemoryTracking.swift",
 			);
 			target = 1D7D17BC2E034A100054700E /* EssentialApp */;
 		};
@@ -69,6 +70,8 @@
 			membershipExceptions = (
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderWithFallBackTests.swift,
+				Helpers/SharedTestHelpers.swift,
+				"Helpers/XCTestCase+MemoryTracking.swift",
 			);
 			target = 1D7D17D22E034A120054700E /* EssentialAppTests */;
 		};
