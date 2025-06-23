@@ -7,7 +7,4 @@
    <FileRef
       location = "container:EssentialApp/EssentialApp.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:FeedImageDataLoaderWithFallbackComposite.swift">
-   </FileRef>
 </Workspace>
