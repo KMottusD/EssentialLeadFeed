@@ -62,6 +62,7 @@
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderCacheDecoratorTests.swift,
 				FeedLoaderWithFallBackCompositeTests.swift,
+				"Helpers/XCTestcase+FeedLoader.swift",
 				"Helpers/XCTestCase+MemoryTracking.swift",
 			);
 			target = 1D7D17BC2E034A100054700E /* EssentialApp */;
@@ -74,6 +75,7 @@
 				FeedLoaderWithFallBackCompositeTests.swift,
 				Helpers/FeedLoaderStub.swift,
 				Helpers/SharedTestHelpers.swift,
+				"Helpers/XCTestcase+FeedLoader.swift",
 				"Helpers/XCTestCase+MemoryTracking.swift",
 			);
 			target = 1D7D17D22E034A120054700E /* EssentialAppTests */;
