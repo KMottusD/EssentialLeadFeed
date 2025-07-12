@@ -61,7 +61,7 @@
 			membershipExceptions = (
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderCacheDecoratorTests.swift,
-				FeedLoaderWithFallBackTests.swift,
+				FeedLoaderWithFallBackCompositeTests.swift,
 				"Helpers/XCTestCase+MemoryTracking.swift",
 			);
 			target = 1D7D17BC2E034A100054700E /* EssentialApp */;
@@ -71,7 +71,8 @@
 			membershipExceptions = (
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderCacheDecoratorTests.swift,
-				FeedLoaderWithFallBackTests.swift,
+				FeedLoaderWithFallBackCompositeTests.swift,
+				Helpers/FeedLoaderStub.swift,
 				Helpers/SharedTestHelpers.swift,
 				"Helpers/XCTestCase+MemoryTracking.swift",
 			);
