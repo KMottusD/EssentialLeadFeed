@@ -60,6 +60,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
+				FeedImageLoaderCacheDecoratorTests.swift,
 				FeedLoaderCacheDecoratorTests.swift,
 				FeedLoaderWithFallBackCompositeTests.swift,
 				"Helpers/XCTestcase+FeedLoader.swift",
@@ -71,6 +72,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
+				FeedImageLoaderCacheDecoratorTests.swift,
 				FeedLoaderCacheDecoratorTests.swift,
 				FeedLoaderWithFallBackCompositeTests.swift,
 				Helpers/FeedLoaderStub.swift,
