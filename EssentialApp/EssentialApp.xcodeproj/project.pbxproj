@@ -75,6 +75,7 @@
 				FeedImageDataLoaderWithFallbackCompositeTests.swift,
 				FeedLoaderCacheDecoratorTests.swift,
 				FeedLoaderWithFallBackCompositeTests.swift,
+				Helpers/FeedImageDataLoaderSpy.swift,
 				Helpers/FeedLoaderStub.swift,
 				Helpers/SharedTestHelpers.swift,
 				"Helpers/XCTestcase+FeedLoader.swift",
