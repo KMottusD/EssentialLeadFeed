@@ -27,6 +27,15 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
         XCTAssertEqual(loader.loadedURLs, [url], "Expected to load URLs from loader")
     }
     
+    func test_cancelLoadImageData_cancelsLoaderTask() {
+        let url = anyURL()
+        let (sut,loader) = makeSUT()
+        
+        let task = sut.loadImageData(from: url) { _ in }
+        task.cancel()
+        
+        XCTAssertEqual(loader.cancelledURLs, [url])
+    }
     
     //MARK Helpers:-
     
