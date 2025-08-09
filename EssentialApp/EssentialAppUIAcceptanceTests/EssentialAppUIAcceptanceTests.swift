@@ -14,10 +14,11 @@ final class EssentialAppUIAcceptanceTests: XCTestCase {
     
         app.launch()
         
-        XCTAssertEqual(app.cells.count, 22)
-        //Flaky test...It's hard to get it pass consistently. Let's continue according to "Caios" comments, there will be better strategies how to address this.
-        //let firstImage = app.images.matching(identifier: "feed-image-view").firstMatch
-        // XCTAssertTrue(firstImage.exists)
+        let feedCells = app.cells.matching(identifier: "feed-image-cell")
+        XCTAssertEqual(feedCells.count, 22)
+
+        let firstImage = app.images.matching(identifier: "feed-image-view").firstMatch
+         XCTAssertTrue(firstImage.exists)
         
     }
     
