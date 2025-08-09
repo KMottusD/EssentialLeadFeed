@@ -1,0 +1,45 @@
+{
+  "configurations" : [
+    {
+      "id" : "C5B22C56-1A65-4C3B-B394-7F11A006AA5D",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:EssentialApp.xcodeproj",
+      "identifier" : "1D7D17BC2E034A100054700E",
+      "name" : "EssentialApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:EssentialApp.xcodeproj",
+        "identifier" : "1D7D17D22E034A120054700E",
+        "name" : "EssentialAppTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:EssentialApp.xcodeproj",
+        "identifier" : "1D7D17DC2E034A120054700E",
+        "name" : "EssentialAppUITests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:EssentialApp.xcodeproj",
+        "identifier" : "1D94249D2E4762F700533CDF",
+        "name" : "EssentialAppUIAcceptanceTests"
+      }
+    }
+  ],
+  "version" : 1
+}
