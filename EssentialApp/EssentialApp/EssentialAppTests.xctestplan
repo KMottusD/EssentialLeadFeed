@@ -17,27 +17,10 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:EssentialApp.xcodeproj",
+        "containerPath" : "container:EssentialApp\/EssentialApp.xcodeproj",
         "identifier" : "1D7D17D22E034A120054700E",
         "name" : "EssentialAppTests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:EssentialApp.xcodeproj",
-        "identifier" : "1D7D17DC2E034A120054700E",
-        "name" : "EssentialAppUITests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:EssentialApp.xcodeproj",
-        "identifier" : "1D94249D2E4762F700533CDF",
-        "name" : "EssentialAppUIAcceptanceTests"
       }
     }
   ],
