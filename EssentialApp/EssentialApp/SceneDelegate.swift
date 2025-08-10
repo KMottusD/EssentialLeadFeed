@@ -24,9 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .defaultDirectoryURL()
             .appendingPathComponent("feed-store.sqlite")
         
+#if DEBUG
         if CommandLine.arguments.contains("-reset") {
             try? FileManager.default.removeItem(at: localStoreURL)
         }
+#endif
         
         let localStore = try! CoreDataFeedStore(storeURL: localStoreURL)
         let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
@@ -46,16 +48,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeRemoteClient() -> HTTPClient {
-        switch UserDefaults.standard.string(forKey: "connectivity") {
-        case "offline":
+#if DEBUG
+        if UserDefaults.standard.string(forKey: "connectivity")  == "offline"{
             return AlwaysFailingHTTPClient()
-            
-        default:
-            return URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
         }
+#endif
+        return URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }
 }
 
+#if DEBUG
 private class AlwaysFailingHTTPClient: HTTPClient {
     private class Task: HTTPClientTask {
         func cancel() {}
@@ -65,42 +67,5 @@ private class AlwaysFailingHTTPClient: HTTPClient {
         completion(.failure(NSError(domain: "offline", code: 0)))
         return Task()
     }
-    
-    private func makeRemoteClient() -> HTTPClient {
-        switch UserDefaults.standard.string(forKey: "connectivity") {
-        case "offline":
-            return AlwaysFailingHTTPClient()
-            
-        default:
-            return URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
-        }
-    }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-    }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
 }
+#endif
